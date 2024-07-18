@@ -1,0 +1,19 @@
+#### Project_1, Mikhail Tyzykhov (Mikhail T)
+# 1. Nejprve určíme, kolik řádků bylo poskytnuto k vyhodnocení každého generátoru:
+# cat pwlist.csv |cut -d "," -f 1 |sort |uniq -c
+# Ukázalo se, že generátor Andoes obsahuje pouze 42 řádků, a proto nesplňuje požadavek na minimální řádky.
+# Nemá smysl analyzovat jeho data.
+#
+# 2. Vytváříme nové soubory: jeden pro každý generátor. Dále je budeme analyzovat:
+# cat pwlist.csv |sort |grep Cairo |cut -c 7- >Cairo.csv
+# cat pwlist.csv |sort |grep HernsPW |cut -c 9- >HernsPW.csv
+# cat pwlist.csv |sort |grep Orion1.15 |cut -c 11- >Orion1.15.csv
+# cat pwlist.csv |sort |grep PWmk |cut -c 6- >Pwmk.csv
+#
+# 3. Dále pro každý nový soubor provedeme 7 příkazů.
+# Prvních 5 je navrženo tak, že generátor splňuje podmínky pouze v případě,
+# že výsledek provádění těchto příkazů je 0.
+# Poslední 2 příkazy jsou navrženy tak, aby generátor splnil podmínku pouze v případě,
+# že výsledek jejich provádění je roven počtu řádků pro analýzu tohoto generátoru.
+#
+# Víz také komentáře v souboru commands.txt

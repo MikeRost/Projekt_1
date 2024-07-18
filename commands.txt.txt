@@ -1,0 +1,70 @@
+# Project_1, Mikhail Tyzykhov (Mikhail T)
+wget https://raw.githubusercontent.com/ENGETO-Academy/Linux-public/main/files/pwlist.csv
+cat pwlist.csv |cut -d "," -f 1 |sort |uniq -c
+# vzorky:
+# 42 Andoes - less than 50, invalid: "-1"
+# 99 Cairo
+# 91 HernsPW
+# 85 Orion1.15
+# 74 PWmk
+##############################
+# new files:
+cat pwlist.csv |sort |grep Cairo |cut -c 7- >Cairo.csv
+cat pwlist.csv |sort |grep HernsPW |cut -c 9- >HernsPW.csv
+cat pwlist.csv |sort |grep Orion1.15 |cut -c 11- >Orion1.15.csv
+cat pwlist.csv |sort |grep PWmk |cut -c 6- >Pwmk.csv
+####
+## Cairo.csv
+grep -x '.\{0,8\}' Cairo.csv >Cairo0-7.csv
+nl -v -98 Cairo0-7.csv
+# 73 w.min_length
+grep -v '[a-z]' Cairo.csv |nl -v -98
+# 97 w.min_lower
+grep -v '[A-Z]' Cairo.csv |nl -v -98
+# 97 w.min_upper
+grep -v '[0-9]' Cairo.csv |nl -v -98
+# 73 w.min_digit
+grep -v '[[:punct:]]' Cairo.csv |nl -v -98
+# 62 w.min_special
+cut -c 1-3 Cairo.csv |sort |uniq -u |nl
+# 99 w.valid_prefix: +1 bod
+cat Cairo.csv |rev |cut -c 2-4 |rev |sort |uniq -u |nl
+# 9 w.valid_suffix: +1 bod
+# score: 2 points
+####
+## HernsPW
+grep -x '.\{0,8\}' HernsPW.csv |nl
+# 0--> 91-0 w.min_length: +1 bod
+grep -v '[a-z]' HernsPW.csv |nl
+# 0--> 91-0 w.min_lower: +1 bod
+grep -v '[A-Z]' HernsPW.csv |nl
+# 0--> 91-0 w.min_upper: +1 bod
+grep -v '[0-9]' HernsPW.csv |nl
+# 6--> 91-6=85 w.min_digit
+grep -v '[[:punct:]]' HernsPW.csv |nl
+# 20--> 91-20=71 w.min_special
+cut -c 1-3 HernsPW.csv |sort |uniq -u |nl
+# 91 w.valid_prefix: +1 bod
+cat HernsPW.csv |rev |cut -c 2-4 |rev |sort |uniq -u |nl
+# 91 w.valid_suffix: +1 bod
+# score 5 points
+####
+## Orion1.15
+grep -x '.\{0,8\}' Orion1.15.csv |wc -l
+grep -v '[a-z]' Orion1.15.csv |wc -l
+grep -v '[A-Z]' Orion1.15.csv |wc -l
+grep -v '[0-9]' Orion1.15.csv |wc -l
+grep -v '[[:punct:]]' Orion1.15.csv |wc -l
+cut -c 1-3 Orion1.15.csv |sort |uniq -u |wc -l
+cat Orion1.15.csv |rev |cut -c 2-4 |rev |sort |uniq -u |wc -l
+# 85, 85, 84, 73, 0, 83, 85: score 3 points
+## PWmk
+grep -x '.\{0,8\}' PWmk.csv |wc -l
+grep -v '[a-z]' PWmk.csv |wc -l
+grep -v '[A-Z]' PWmk.csv |wc -l
+grep -v '[0-9]' PWmk.csv |wc -l
+grep -v '[[:punct:]]' PWmk.csv |wc -l
+cut -c 1-3 PWmk.csv |sort |uniq -u |wc -l
+cat PWmk.csv |rev |cut -c 2-4 |rev |sort |uniq -u |wc -l
+# 53, 74, 74, 0, 55, 74, 74: score 4 points
+#### WINNER: HernsPW with 5 points ####
